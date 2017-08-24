@@ -122,7 +122,7 @@ public class YAxisRenderer extends AxisRenderer {
         // draw
         for (int i = from; i < to; i++) {
 
-            String text = mYAxis.getFormattedLabel(i);
+            String text = String.format("%d%d", mYAxis.getFormattedLabel(i), 'k');
 
             c.drawText(text, fixedPosition, positions[i * 2 + 1] + offset, mAxisLabelPaint);
         }
