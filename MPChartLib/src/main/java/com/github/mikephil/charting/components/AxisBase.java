@@ -469,7 +469,7 @@ public abstract class AxisBase extends ComponentBase {
         if (index < 0 || index >= mEntries.length)
             return "";
         else
-            return getValueFormatter().getFormattedValue(mEntries[index]/1000.0, this);
+            return getValueFormatter().getFormattedValue(mEntries[index]/1000, this);
     }
 
     /**
