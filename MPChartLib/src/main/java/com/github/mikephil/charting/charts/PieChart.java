@@ -71,6 +71,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
      * variable for the text that is drawn in the center of the pie-chart
      */
     private CharSequence mCenterText = "";
+    private CharSequence mCenterTextFirst = "";
+    private CharSequence mCenterTextSecond = "";
 
     private MPPointF mCenterTextOffset = MPPointF.getInstance(0, 0);
 
@@ -414,6 +416,20 @@ public class PieChart extends PieRadarChartBase<PieData> {
             mCenterText = text;
     }
 
+    public void setCenterTextFirst(CharSequence text) {
+        if (text == null)
+            mCenterTextFirst = "";
+        else
+            mCenterTextFirst = text;
+    }
+
+    public void setCenterTextSecond(CharSequence text) {
+        if (text == null)
+            mCenterTextSecond = "";
+        else
+            mCenterTextSecond = text;
+    }
+
     /**
      * returns the text that is drawn in the center of the pie-chart
      *
@@ -421,6 +437,14 @@ public class PieChart extends PieRadarChartBase<PieData> {
      */
     public CharSequence getCenterText() {
         return mCenterText;
+    }
+
+    public CharSequence getCenterTextFirst() {
+        return mCenterTextFirst;
+    }
+
+    public CharSequence getCenterTextSecond() {
+        return mCenterTextSecond;
     }
 
     /**
