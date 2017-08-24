@@ -85,8 +85,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
     private float mMiddleOffsetPercent = 50f;
     private float mMiddleRadiusPercent = 50f;
 
-    private int mMiddleColor = 0;
-
     /**
      * the radius of the transparent circle next to the chart-hole in the center
      */
@@ -137,7 +135,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
         mRenderer.drawExtras(canvas);
 
-        mRenderer.drawValues(canvas);
+        // mRenderer.drawValues(canvas);
 
         mLegendRenderer.renderLegend(canvas);
 
@@ -455,7 +453,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
     public void setMiddleColor(int color) {
         // ((PieChartRenderer) mRenderer).getPaintHole().setColor(color);
-        mMiddleColor = color;
     }
 
     public void setMiddleOffset(final float percent) {
