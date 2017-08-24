@@ -207,13 +207,13 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         if (mXAxis.isEnabled())
             mXAxisRenderer.computeAxis(mXAxis.mAxisMinimum, mXAxis.mAxisMaximum, false);
 
-        mXAxisRenderer.renderAxisLine(canvas);
-        mAxisRendererLeft.renderAxisLine(canvas);
-        mAxisRendererRight.renderAxisLine(canvas);
+        // mXAxisRenderer.renderAxisLine(canvas);
+        // mAxisRendererLeft.renderAxisLine(canvas);
+        // mAxisRendererRight.renderAxisLine(canvas);
 
-        mXAxisRenderer.renderGridLines(canvas);
+        // mXAxisRenderer.renderGridLines(canvas);
         mAxisRendererLeft.renderGridLines(canvas);
-        mAxisRendererRight.renderGridLines(canvas);
+        // mAxisRendererRight.renderGridLines(canvas);
 
         if (mXAxis.isEnabled() && mXAxis.isDrawLimitLinesBehindDataEnabled())
             mXAxisRenderer.renderLimitLines(canvas);
@@ -250,22 +250,22 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
         mXAxisRenderer.renderAxisLabels(canvas);
         mAxisRendererLeft.renderAxisLabels(canvas);
-        mAxisRendererRight.renderAxisLabels(canvas);
+        // mAxisRendererRight.renderAxisLabels(canvas);
 
-        if (isClipValuesToContentEnabled()) {
-            clipRestoreCount = canvas.save();
-            canvas.clipRect(mViewPortHandler.getContentRect());
+        // if (isClipValuesToContentEnabled()) {
+        //     clipRestoreCount = canvas.save();
+        //     canvas.clipRect(mViewPortHandler.getContentRect());
 
-            mRenderer.drawValues(canvas);
+        //     mRenderer.drawValues(canvas);
 
-            canvas.restoreToCount(clipRestoreCount);
-        } else {
-            mRenderer.drawValues(canvas);
-        }
+        //     canvas.restoreToCount(clipRestoreCount);
+        // } else {
+        //     mRenderer.drawValues(canvas);
+        // }
 
         mLegendRenderer.renderLegend(canvas);
 
-        drawDescription(canvas);
+        // drawDescription(canvas);
 
         drawMarkers(canvas);
 
