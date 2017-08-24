@@ -357,7 +357,7 @@ public class LegendRenderer extends Renderer {
                         if (direction == Legend.LegendDirection.RIGHT_TO_LEFT)
                             posX -= formSize;
 
-                        drawForm(c, posX + 30.0, posY + formYOffset, e, mLegend);
+                        drawForm(c, posX, posY + formYOffset, e, mLegend);
 
                         if (direction == Legend.LegendDirection.LEFT_TO_RIGHT)
                             posX += formSize;
@@ -371,7 +371,7 @@ public class LegendRenderer extends Renderer {
                         if (direction == Legend.LegendDirection.RIGHT_TO_LEFT)
                             posX -= calculatedLabelSizes.get(i).width;
 
-                        drawLabel(c, posX + 30.0, posY + labelLineHeight, e.label);
+                        drawLabel(c, posX, posY + labelLineHeight, e.label);
 
                         if (direction == Legend.LegendDirection.LEFT_TO_RIGHT)
                             posX += calculatedLabelSizes.get(i).width;

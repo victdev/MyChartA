@@ -71,8 +71,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
      * variable for the text that is drawn in the center of the pie-chart
      */
     private CharSequence mCenterText = "";
-    private CharSequence mCenterTextFirst = "";
-    private CharSequence mCenterTextSecond = "";
 
     private MPPointF mCenterTextOffset = MPPointF.getInstance(0, 0);
 
@@ -81,9 +79,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
      * radius / 2
      */
     private float mHoleRadiusPercent = 50f;
-
-    private float mMiddleOffsetPercent = 50f;
-    private float mMiddleRadiusPercent = 50f;
 
     /**
      * the radius of the transparent circle next to the chart-hole in the center
@@ -135,7 +130,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
         mRenderer.drawExtras(canvas);
 
-        // mRenderer.drawValues(canvas);
+        mRenderer.drawValues(canvas);
 
         mLegendRenderer.renderLegend(canvas);
 
@@ -419,20 +414,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
             mCenterText = text;
     }
 
-    public void setCenterTextFirst(CharSequence text) {
-        if (text == null)
-            mCenterTextFirst = "";
-        else
-            mCenterTextFirst = text;
-    }
-
-    public void setCenterTextSecond(CharSequence text) {
-        if (text == null)
-            mCenterTextSecond = "";
-        else
-            mCenterTextSecond = text;
-    }
-
     /**
      * returns the text that is drawn in the center of the pie-chart
      *
@@ -440,35 +421,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
      */
     public CharSequence getCenterText() {
         return mCenterText;
-    }
-
-    public CharSequence getCenterTextFirst() {
-        return mCenterTextFirst;
-    }
-
-    public CharSequence getCenterTextSecond() {
-        return mCenterTextSecond;
-    }
-
-
-    public void setMiddleColor(int color) {
-        // ((PieChartRenderer) mRenderer).getPaintHole().setColor(color);
-    }
-
-    public void setMiddleOffset(final float percent) {
-        mMiddleOffsetPercent = percent;
-    }
-
-    public float getMiddleOffset() {
-        return mMiddleOffsetPercent;
-    }
-
-    public void setMiddleRadius(final float percent) {
-        mMiddleRadiusPercent = percent;
-    }
-
-    public float getMiddleRadius() {
-        return mMiddleRadiusPercent;
     }
 
     /**
