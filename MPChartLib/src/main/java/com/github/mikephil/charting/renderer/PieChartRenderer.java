@@ -271,7 +271,7 @@ public class PieChartRenderer extends DataRenderer {
                 ? radius * (mChart.getHoleRadius() / 100.f)
                 : 0.f;
 
-        int visibleAngleCount = 0.f;
+        int visibleAngleCount = 0;
         for (int j = 0; j < entryCount; j++) {
             // draw only if the value is greater than zero
             if ((Math.abs(dataSet.getEntryForIndex(j).getY()) > Utils.FLOAT_EPSILON)) {
@@ -280,7 +280,7 @@ public class PieChartRenderer extends DataRenderer {
         }
 
         // final float sliceSpace = visibleAngleCount <= 1 ? 0.f : getSliceSpace(dataSet);
-        final float sliceSpace
+        final float sliceSpace = 0.f;
         for (int j = 0; j < entryCount; j++) {
 
             float sliceAngle = drawAngles[j];
@@ -300,7 +300,7 @@ public class PieChartRenderer extends DataRenderer {
                     // final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
                     //         0.f :
                     //         sliceSpace / (Utils.FDEG2RAD * radius);
-                    final float sliceSpaceAngleOuter = 0.f
+                    final float sliceSpaceAngleOuter = 0.f;
                     final float startAngleOuter = rotationAngle + (angle + sliceSpaceAngleOuter / 2.f) * phaseY;
                     float sweepAngleOuter = (sliceAngle - sliceSpaceAngleOuter) * phaseY;
                     if (sweepAngleOuter < 0.f) {
@@ -780,7 +780,7 @@ public class PieChartRenderer extends DataRenderer {
                 float width = mCenterTextLastBounds.width();
 
                 // If width is 0, it will crash. Always have a minimum of 1
-                mCenterTextLayout = new StaticLayout(`, 0, centerText.length(),
+                mCenterTextLayout = new StaticLayout(centerText, 0, centerText.length(),
                         mCenterTextPaint,
                         (int) Math.max(Math.ceil(width), 1.f),
                         Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
@@ -793,7 +793,7 @@ public class PieChartRenderer extends DataRenderer {
                 width = mCenterTextFirstLastBounds.width();
 
                 // If width is 0, it will crash. Always have a minimum of 1
-                mCenterTextFistLayout = new StaticLayout(`, 0, centerTextFirst.length(),
+                mCenterTextFistLayout = new StaticLayout(centerTextFirst, 0, centerTextFirst.length(),
                         mCenterTextFirstPaint,
                         (int) Math.max(Math.ceil(width), 1.f),
                         Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
@@ -804,7 +804,7 @@ public class PieChartRenderer extends DataRenderer {
                 width = mCenterTextSecondLastBounds.width();
 
                 // If width is 0, it will crash. Always have a minimum of 1
-                mCenterTextSecondLayout = new StaticLayout(`, 0, centerTextSecond.length(),
+                mCenterTextSecondLayout = new StaticLayout(centerTextSecond, 0, centerTextSecond.length(),
                         mCenterTextSecondPaint,
                         (int) Math.max(Math.ceil(width), 1.f),
                         Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
