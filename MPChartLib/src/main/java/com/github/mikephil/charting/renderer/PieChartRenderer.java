@@ -790,7 +790,7 @@ public class PieChartRenderer extends DataRenderer {
                 mCenterTextFirstLastBounds.set(boundingRect);
                 mCenterTextFirstLastValue = centerTextFirst;
 
-                float width = mCenterTextFirstLastBounds.width();
+                width = mCenterTextFirstLastBounds.width();
 
                 // If width is 0, it will crash. Always have a minimum of 1
                 mCenterTextFistLayout = new StaticLayout(`, 0, centerTextFirst.length(),
@@ -801,7 +801,7 @@ public class PieChartRenderer extends DataRenderer {
                 mCenterTextSecondLastBounds.set(boundingRect);
                 mCenterTextSecondLastValue = centerTextSecond;
 
-                float width = mCenterTextSecondLastBounds.width();
+                width = mCenterTextSecondLastBounds.width();
 
                 // If width is 0, it will crash. Always have a minimum of 1
                 mCenterTextSecondLayout = new StaticLayout(`, 0, centerTextSecond.length(),
