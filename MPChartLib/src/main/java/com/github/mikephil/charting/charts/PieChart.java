@@ -74,6 +74,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
     private CharSequence mCenterTextFirst = "";
     private CharSequence mCenterTextSecond = "";
 
+    private int mMiddleColor = 0;
+
     private MPPointF mCenterTextOffset = MPPointF.getInstance(0, 0);
 
     /**
@@ -452,7 +454,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
 
     public void setMiddleColor(int color) {
-        ((PieChartRenderer) mRenderer).getPaintMiddle().setColor(color);
+        // ((PieChartRenderer) mRenderer).getPaintMiddle().setColor(color);
+        mMiddleColor = color;
     }
 
     public void setMiddleOffset(final float percent) {
