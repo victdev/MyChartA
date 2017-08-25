@@ -238,8 +238,8 @@ public class PieChartRenderer extends DataRenderer {
             }
         }
 
-        final float sliceSpace = visibleAngleCount <= 1 ? 0.f : getSliceSpace(dataSet);
-
+        // final float sliceSpace = visibleAngleCount <= 1 ? 0.f : getSliceSpace(dataSet);
+        final float sliceSpace = 0.f;
         for (int j = 0; j < entryCount; j++) {
 
             float sliceAngle = drawAngles[j];
@@ -256,9 +256,10 @@ public class PieChartRenderer extends DataRenderer {
 
                     mRenderPaint.setColor(dataSet.getColor(j));
 
-                    final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
-                            0.f :
-                            sliceSpace / (Utils.FDEG2RAD * radius);
+                    // final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
+                    //         0.f :
+                    //         sliceSpace / (Utils.FDEG2RAD * radius);
+                    final float sliceSpaceAngleOuter = 0.f;
                     final float startAngleOuter = rotationAngle + (angle + sliceSpaceAngleOuter / 2.f) * phaseY;
                     float sweepAngleOuter = (sliceAngle - sliceSpaceAngleOuter) * phaseY;
                     if (sweepAngleOuter < 0.f) {
