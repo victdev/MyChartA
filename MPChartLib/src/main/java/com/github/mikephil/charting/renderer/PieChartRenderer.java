@@ -42,6 +42,8 @@ public class PieChartRenderer extends DataRenderer {
      * circle
      */
     protected Paint mHolePaint;
+    protected Paint mMiddlePaint;
+    protected Paint mMiddleOffsetPaint;
     protected Paint mTransparentCirclePaint;
     protected Paint mValueLinePaint;
 
@@ -50,6 +52,8 @@ public class PieChartRenderer extends DataRenderer {
      * chart
      */
     private TextPaint mCenterTextPaint;
+    private TextPaint mCenterTextFirstPaint;
+    private TextPaint mCenterTextSecondPaint;
 
     /**
      * paint object used for drwing the slice-text
@@ -58,7 +62,17 @@ public class PieChartRenderer extends DataRenderer {
 
     private StaticLayout mCenterTextLayout;
     private CharSequence mCenterTextLastValue;
+
+    private StaticLayout mCenterTextFirstLayout;
+    private CharSequence mCenterTextFirstLastValue;
+
+    private StaticLayout mCenterTextSecondLayout;
+    private CharSequence mCenterTextSecondLastValue;
+
     private RectF mCenterTextLastBounds = new RectF();
+    private RectF mCenterTextFirstLastBounds = new RectF();
+    private RectF mCenterTextSecondLastBounds = new RectF();
+
     private RectF[] mRectBuffer = {new RectF(), new RectF(), new RectF()};
 
     /**
@@ -77,6 +91,13 @@ public class PieChartRenderer extends DataRenderer {
         mHolePaint.setColor(Color.WHITE);
         mHolePaint.setStyle(Style.FILL);
 
+        mMiddlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mMiddlePaint.setColor(Color.WHITE);
+        mMiddlePaint.setStyle(Style.FILL);
+
+        mMiddleOffsetPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mMiddleOffsetPaint.setStyle(Style.FILL);
+
         mTransparentCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTransparentCirclePaint.setColor(Color.WHITE);
         mTransparentCirclePaint.setStyle(Style.FILL);
@@ -84,7 +105,15 @@ public class PieChartRenderer extends DataRenderer {
 
         mCenterTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         mCenterTextPaint.setColor(Color.BLACK);
-        mCenterTextPaint.setTextSize(Utils.convertDpToPixel(12f));
+        mCenterTextPaint.setTextSize(Utils.convertDpToPixel(24f));
+
+        mCenterTextFirstPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        mCenterTextFirstPaint.setColor(Color.BLACK);
+        mCenterTextFirstPaint.setTextSize(Utils.convertDpToPixel(24f));
+
+        mCenterTextSecondPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        mCenterTextSecondPaint.setColor(Color.BLACK);
+        mCenterTextSecondPaint.setTextSize(Utils.convertDpToPixel(24f));
 
         mValuePaint.setTextSize(Utils.convertDpToPixel(13f));
         mValuePaint.setColor(Color.WHITE);
@@ -103,12 +132,24 @@ public class PieChartRenderer extends DataRenderer {
         return mHolePaint;
     }
 
+    public Paint getPaintMiddle() {
+        return mMiddleOffsetPaint;
+    }
+
     public Paint getPaintTransparentCircle() {
         return mTransparentCirclePaint;
     }
 
     public TextPaint getPaintCenterText() {
         return mCenterTextPaint;
+    }
+
+    public TextPaint getPaintCenterTextFirst() {
+        return mCenterTextFirstPaint;
+    }
+
+    public TextPaint getPaintCenterTextSecond() {
+        return mCenterTextSecondPaint;
     }
 
     public Paint getPaintEntryLabels() {
@@ -230,7 +271,7 @@ public class PieChartRenderer extends DataRenderer {
                 ? radius * (mChart.getHoleRadius() / 100.f)
                 : 0.f;
 
-        int visibleAngleCount = 0;
+        int visibleAngleCount = 0.f;
         for (int j = 0; j < entryCount; j++) {
             // draw only if the value is greater than zero
             if ((Math.abs(dataSet.getEntryForIndex(j).getY()) > Utils.FLOAT_EPSILON)) {
@@ -238,8 +279,8 @@ public class PieChartRenderer extends DataRenderer {
             }
         }
 
-        final float sliceSpace = visibleAngleCount <= 1 ? 0.f : getSliceSpace(dataSet);
-
+        // final float sliceSpace = visibleAngleCount <= 1 ? 0.f : getSliceSpace(dataSet);
+        final float sliceSpace
         for (int j = 0; j < entryCount; j++) {
 
             float sliceAngle = drawAngles[j];
@@ -256,9 +297,10 @@ public class PieChartRenderer extends DataRenderer {
 
                     mRenderPaint.setColor(dataSet.getColor(j));
 
-                    final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
-                            0.f :
-                            sliceSpace / (Utils.FDEG2RAD * radius);
+                    // final float sliceSpaceAngleOuter = visibleAngleCount == 1 ?
+                    //         0.f :
+                    //         sliceSpace / (Utils.FDEG2RAD * radius);
+                    final float sliceSpaceAngleOuter = 0.f
                     final float startAngleOuter = rotationAngle + (angle + sliceSpaceAngleOuter / 2.f) * phaseY;
                     float sweepAngleOuter = (sliceAngle - sliceSpaceAngleOuter) * phaseY;
                     if (sweepAngleOuter < 0.f) {
@@ -651,6 +693,8 @@ public class PieChartRenderer extends DataRenderer {
 
             float radius = mChart.getRadius();
             float holeRadius = radius * (mChart.getHoleRadius() / 100);
+            float middleRadius = radius * (mChart.getMiddleRadius() / 100);
+            float middleRadiusOffset = radius * (mChart.getMiddleOffset() / 100);
             MPPointF center = mChart.getCenterCircleBox();
 
             if (Color.alpha(mHolePaint.getColor()) > 0) {
@@ -658,6 +702,12 @@ public class PieChartRenderer extends DataRenderer {
                 mBitmapCanvas.drawCircle(
                         center.x, center.y,
                         holeRadius, mHolePaint);
+                mBitmapCanvas.drawCircle(
+                        center.x, center.y,
+                        middleRadius, mMiddlePaint);
+                mBitmapCanvas.drawCircle(
+                        center.x, center.y,
+                        middleRadius + middleRadiusOffset, mMiddleOffsetPaint);
             }
 
             // only draw the circle if it can be seen (not covered by the hole)
@@ -690,6 +740,8 @@ public class PieChartRenderer extends DataRenderer {
     protected void drawCenterText(Canvas c) {
 
         CharSequence centerText = mChart.getCenterText();
+        CharSequence centerTextFirst = mChart.getCenterTextFirst();
+        CharSequence centerTextSecond = mChart.getCenterTextSecod();
 
         if (mChart.isDrawCenterTextEnabled() && centerText != null) {
 
@@ -728,8 +780,32 @@ public class PieChartRenderer extends DataRenderer {
                 float width = mCenterTextLastBounds.width();
 
                 // If width is 0, it will crash. Always have a minimum of 1
-                mCenterTextLayout = new StaticLayout(centerText, 0, centerText.length(),
+                mCenterTextLayout = new StaticLayout(`, 0, centerText.length(),
                         mCenterTextPaint,
+                        (int) Math.max(Math.ceil(width), 1.f),
+                        Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
+
+
+
+                mCenterTextFirstLastBounds.set(boundingRect);
+                mCenterTextFirstLastValue = centerTextFirst;
+
+                float width = mCenterTextFirstLastBounds.width();
+
+                // If width is 0, it will crash. Always have a minimum of 1
+                mCenterTextFistLayout = new StaticLayout(`, 0, centerTextFirst.length(),
+                        mCenterTextFirstPaint,
+                        (int) Math.max(Math.ceil(width), 1.f),
+                        Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
+
+                mCenterTextSecondLastBounds.set(boundingRect);
+                mCenterTextSecondLastValue = centerTextSecond;
+
+                float width = mCenterTextSecondLastBounds.width();
+
+                // If width is 0, it will crash. Always have a minimum of 1
+                mCenterTextSecondLayout = new StaticLayout(`, 0, centerTextSecond.length(),
+                        mCenterTextSecondPaint,
                         (int) Math.max(Math.ceil(width), 1.f),
                         Layout.Alignment.ALIGN_CENTER, 1.f, 0.f, false);
             }
@@ -747,7 +823,10 @@ public class PieChartRenderer extends DataRenderer {
 
             c.translate(boundingRect.left, boundingRect.top + (boundingRect.height() - layoutHeight) / 2.f);
             mCenterTextLayout.draw(c);
-
+            c.translate(boundingRect.left, boundingRect.top + (boundingRect.height() + layoutHeight) / 2.f);
+            mCenterTextFirstLayout.draw(c);
+            c.translate(boundingRect.left, boundingRect.top + (boundingRect.height() - 3.f * layoutHeight) / 2.f);
+            mCenterTextSecondLayout.draw(c);
             c.restore();
 
             MPPointF.recycleInstance(center);
