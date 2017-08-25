@@ -192,7 +192,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         long starttime = System.currentTimeMillis();
 
         // execute all drawing commands
-        drawGridBackground(canvas);
+        // drawGridBackground(canvas);
 
         if (mAutoScaleMinMaxEnabled) {
             autoScale();
